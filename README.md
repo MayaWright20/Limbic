@@ -6,6 +6,7 @@
 ```npm install```
 
 2. Run application
-```npm start```
+```npm run start```
 
+3. Press ```i``` for iOS simulator or ```a``` for Android
 

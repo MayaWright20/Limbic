@@ -2,7 +2,6 @@ import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet } from "react-native";
 
 import { COLORS } from "./Colors";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./Dimensions";
 
 export default function ScreenLinearBackground({ children }: any) {
     return (
@@ -17,7 +16,6 @@ export default function ScreenLinearBackground({ children }: any) {
 
 const styles = StyleSheet.create({
     linearbackground: {
-        width: SCREEN_WIDTH,
-        height: SCREEN_HEIGHT
+        flex: 1
     }
 });

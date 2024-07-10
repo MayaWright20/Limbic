@@ -14,28 +14,20 @@ import {
 import { SCREEN_WIDTH } from "../../constants/Dimensions";
 import { COLORS } from "../../constants/Colors";
 
-interface TextInputLayoutProps {
-    onPress: () => void;
-    title: string;
-    onChangeText?: (text: string) => void;
-    children: any;
-};
+import { TextInputLayoutProps } from "../../Types";
 
 export default function TextInputLayout({
     onPress,
     title,
     onChangeText,
-    children
 }: TextInputLayoutProps) {
 
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            style={styles.keyboardAvoidingView}>
+            >
             <TouchableWithoutFeedback
                 onPress={Keyboard.dismiss}>
-                <View style={styles.inner}>
-                    {children}
                     <View style={styles.container}>
                         <TextInput
                             style={styles.textInputs}
@@ -48,7 +40,6 @@ export default function TextInputLayout({
                             <Text>{title}</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
             </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
     );
@@ -62,15 +53,15 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         flexDirection: 'row',
         overflow: 'hidden',
-        justifyContent: 'space-evenly',
         width: SCREEN_WIDTH / 1.05,
         alignSelf: 'center',
+        marginBottom: 15
     },
     textInputs: {
         backgroundColor: 'white',
         flex: 2,
         height: 50,
-        paddingHorizontal: 10
+        paddingHorizontal: 25
     },
     touchableOpacity: {
         backgroundColor: COLORS.HIGHTLIGHT_DARK_BLUE,
@@ -79,13 +70,5 @@ const styles = StyleSheet.create({
         margin: 5,
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    keyboardAvoidingView: {
-        flex: 1,
-    },
-    inner: {
-        padding: 24,
-        flex: 1,
-        justifyContent: 'flex-end',
-    },
+    }
 });

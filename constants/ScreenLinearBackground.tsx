@@ -16,6 +16,7 @@ export default function ScreenLinearBackground({ children }: any) {
 
 const styles = StyleSheet.create({
     linearbackground: {
-        flex: 1
+        flex: 1,
+        paddingTop: 30,
     }
 });

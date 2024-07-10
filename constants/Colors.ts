@@ -2,6 +2,7 @@ export const COLORS = {
     WHITE: 'rgb(255,255,255)',
     YELLOW: 'rgb(251, 248, 204)',
     LIME: 'rgb(243,254,203)',
+    DARK_LIME: 'rgb(81, 202, 112)',
     LIGHT_ORANGE: 'rgb(253, 228, 207)',
     ORANGE: 'rgb(255, 207, 210)',
     PINK: 'rgb(241, 192, 232)',

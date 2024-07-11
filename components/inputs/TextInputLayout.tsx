@@ -10,7 +10,7 @@ import {
 import { SCREEN_WIDTH } from "../../constants/Dimensions";
 import { COLORS } from "../../constants/Colors";
 
-import { TextInputLayoutProps } from "../../Types";
+import { TextInputLayoutProps } from "../../types/Types";
 
 export default function TextInputLayout({
     onPress,

@@ -15,10 +15,28 @@ import TextInputLayout from '../inputs/TextInputLayout';
 
 import { CHAT_BOT_DATA } from '../../data/ChatbotData';
 import { COLORS } from '../../constants/Colors';
-import { USER_INPUT } from '../../Types';
+import { USER_INPUT } from '../../types/Types';
 import { SCREEN_WIDTH } from '../../constants/Dimensions';
 
+
+
 export default function ChatScreen() {
+
+  // const sendData = async (message) => {
+  //   try {
+  //     const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({ message }),
+  //     });
+  //     const data = await response.json();
+  //     console.log(data); // Handle success response
+  //   } catch (error) {
+  //     console.error('Error:', error); // Handle errors
+  //   }
+  // };
 
   let counter: number = 1;
   let conversation = CHAT_BOT_DATA.slice(0, counter);

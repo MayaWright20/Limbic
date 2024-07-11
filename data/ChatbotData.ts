@@ -1,4 +1,4 @@
-import { USER_INPUT } from "../Types";
+import { USER_INPUT } from "../types/Types";
 
 export const CHAT_BOT_DATA = [
     {

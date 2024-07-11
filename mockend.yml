@@ -5,7 +5,7 @@ models:
       _count: 10
       cover: { imageURL: [1920, 1080] }
       title: { loremWords: [5, 20] }
-      body: { loremParagraphs: [10, 100] }
+      body: { string: 'Hello' }
       category: { oneOfString: [one, two, three] }
       isDraft: { bool: 20 }
       views: { int: [0, 1000] }

@@ -1,19 +1,53 @@
 models:
-  Post:
-    hasMany: [Comment]
-    fake:
-      _count: 10
-      cover: { imageURL: [1920, 1080] }
-      title: { loremWords: [5, 20] }
-      body: { loremParagraphs: [10, 100] }
-      category: { oneOfString: [one, two, three] }
-      isDraft: { bool: 20 }
-      views: { int: [0, 1000] }
-      createdAt: { dateTime: [2010-01-01T00:00:00Z, 2020-12-31T23:59:59Z] }
-  Comment:
-    belongsTo: [Post]
-    fake:
-      _count: 25
-      email: email
-      body: { loremParagraphs: [10, 100] }
-      createdAt: { dateTime: [2010-01-01T00:00:00Z, 2020-12-31T23:59:59Z] }
+- id: 1
+  message: "Hello, What is your name?"
+  userInput: TEXT_INPUT
+  user: false
+  botDelay: 0
+  optionsStyle: ""
+  options: []
+  inputAttributes:
+    keyboardType: text
+  metadata: {}
+  trigger: 2
+- id: 2
+  message: "Nice to meet you {first_name}!"
+  userInput: NO_INPUT
+  user: false
+  botDelay: 1000
+  optionsStyle: ""
+  options: []
+  inputAttributes:
+    keyboardType: email-address
+  metadata: {}
+  trigger: 3
+- id: 3
+  message: "For us to get started I will need to ask you some questions on how you've been feeling lately"
+  userInput: NO_INPUT
+  user: false
+  botDelay: 1000
+  optionsStyle: ""
+  options: []
+  inputAttributes:
+    keyboardType: email-address
+  metadata: {}
+  trigger: 2
+- id: 4
+  message: "Shall we start?"
+  userInput: OPTIONS
+  user: false
+  botDelay: 1000
+  optionsStyle: ""
+  options:
+    - value: 1
+      label: Yes
+      trigger: 6
+    - value: 2
+      label: No
+      trigger: 5
+  inputAttributes:
+    keyboardType: email-address
+  metadata: {}
+  trigger:
+    1: 6
+    2: 5

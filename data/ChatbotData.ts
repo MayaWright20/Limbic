@@ -1,38 +1,64 @@
-import { USER_RESPONSE } from "../Types";
+import { USER_INPUT } from "../Types";
 
 export const CHAT_BOT_DATA = [
     {
         id: 1,
-        chatbot: `Hello, What is your name?`,
-        userResponse: USER_RESPONSE.TEXT_INPUT,
-        trigger: 2,
+        message: `Hello, What is your name?`,
+        userInput: USER_INPUT.TEXT_INPUT,
         user: false,
-        botDelay: 10,
-        optionStyle: '',
+        botDelay: 0,
+        optionsStyle: '',
+        options: [],
+        inputAttributes: {
+            keyboardType : 'text'
+        },
+        metadata: {},
+        trigger: 2,
     },
     {
         id: 2,
-        chatbot: `Nice to meet you {first_name}!`,
-        userResponse: USER_RESPONSE.NO_INPUT,
+        message: `Nice to meet you {first_name}!`,
+        userInput: USER_INPUT.NO_INPUT,
+        user: false,
+        botDelay: 1000,
+        optionsStyle: '',
+        options: [],
+        inputAttributes: {
+            keyboardType : 'email-address'
+        },
+        metadata: {},
         trigger: 3,
-        user: true
     },
     {
         id: 3,
-        chatbot: `For us to get started I will need to ask you some questions on how you've been feeling lately`,
-        userResponse: USER_RESPONSE.NO_INPUT,
-        trigger: 4,
-        user: false
+        message: `For us to get started I will need to ask you some questions on how you've been feeling lately`,
+        userInput: USER_INPUT.NO_INPUT,
+        user: false,
+        botDelay: 1000,
+        optionsStyle: '',
+        options: [],
+        inputAttributes: {
+            keyboardType : 'email-address'
+        },
+        metadata: {},
+        trigger: 2,
     },
     {
         id: 4,
-        chatbot: `Shall we start?`,
-        userResponse: USER_RESPONSE.OPTIONS,
+        message: `Shall we start?`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        botDelay: 1000,
+        optionsStyle: '',
         options: [
-            {'yes': 0},
-            {'no': 1},
+            { value: 1, label: 'Yes', trigger: 6 },
+            { value: 2, label: 'No', trigger: 5 },
         ],
-        trigger: 4,
-        user: false
+        inputAttributes: {
+            keyboardType : 'email-address'
+        },
+        metadata: {},
+        trigger: {1: 6, 2: 5},
     },
+
 ];

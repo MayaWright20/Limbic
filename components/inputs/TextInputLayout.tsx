@@ -5,10 +5,6 @@ import {
     TextInput,
     StyleSheet,
     TouchableOpacity,
-    KeyboardAvoidingView,
-    Platform,
-    TouchableWithoutFeedback,
-    Keyboard
 } from "react-native";
 
 import { SCREEN_WIDTH } from "../../constants/Dimensions";
@@ -20,28 +16,23 @@ export default function TextInputLayout({
     onPress,
     title,
     onChangeText,
+    value
 }: TextInputLayoutProps) {
 
     return (
-        <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            >
-            <TouchableWithoutFeedback
-                onPress={Keyboard.dismiss}>
-                    <View style={styles.container}>
-                        <TextInput
-                            style={styles.textInputs}
-                            placeholder="Type here..."
-                            onChangeText={onChangeText}
-                        />
-                        <TouchableOpacity
-                            onPress={onPress}
-                            style={styles.touchableOpacity}>
-                            <Text>{title}</Text>
-                        </TouchableOpacity>
-                    </View>
-            </TouchableWithoutFeedback>
-        </KeyboardAvoidingView>
+        <View style={styles.container}>
+            <TextInput
+                style={styles.textInputs}
+                placeholder="Type here..."
+                onChangeText={onChangeText}
+                value={value}
+            />
+            <TouchableOpacity
+                onPress={onPress}
+                style={styles.touchableOpacity}>
+                <Text>{title}</Text>
+            </TouchableOpacity>
+        </View>
     );
 };
 

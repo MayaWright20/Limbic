@@ -2,7 +2,7 @@ import { USER_INPUT } from "../types/Types";
 
 export const CHAT_BOT_DATA = [
     {
-        id: 1,
+        id: 0,
         message: `Hello, What is your name?`,
         userInput: USER_INPUT.TEXT_INPUT,
         user: false,
@@ -13,14 +13,28 @@ export const CHAT_BOT_DATA = [
             keyboardType : 'text'
         },
         metadata: {},
+        trigger: 1,
+    },
+    {
+        id: 1,
+        message: `Nice to meet you {first_name}!`,
+        userInput: USER_INPUT.NO_INPUT,
+        user: false,
+        botDelay: 500,
+        optionsStyle: '',
+        options: [],
+        inputAttributes: {
+            keyboardType : 'email-address'
+        },
+        metadata: {},
         trigger: 2,
     },
     {
         id: 2,
-        message: `Nice to meet you {first_name}!`,
+        message: `For us to get started I will need to ask you some questions on how you've been feeling lately`,
         userInput: USER_INPUT.NO_INPUT,
         user: false,
-        botDelay: 1000,
+        botDelay: 500,
         optionsStyle: '',
         options: [],
         inputAttributes: {
@@ -31,34 +45,20 @@ export const CHAT_BOT_DATA = [
     },
     {
         id: 3,
-        message: `For us to get started I will need to ask you some questions on how you've been feeling lately`,
-        userInput: USER_INPUT.NO_INPUT,
-        user: false,
-        botDelay: 1000,
-        optionsStyle: '',
-        options: [],
-        inputAttributes: {
-            keyboardType : 'email-address'
-        },
-        metadata: {},
-        trigger: 2,
-    },
-    {
-        id: 4,
         message: `Shall we start?`,
         userInput: USER_INPUT.OPTIONS,
         user: false,
-        botDelay: 1000,
+        botDelay:500,
         optionsStyle: '',
         options: [
-            { value: 1, label: 'Yes', trigger: 6 },
-            { value: 2, label: 'No', trigger: 5 },
+            { value: 1, label: 'Yes', trigger: 5 },
+            { value: 2, label: 'No', trigger: 4 },
         ],
         inputAttributes: {
             keyboardType : 'email-address'
         },
         metadata: {},
-        trigger: {1: 6, 2: 5},
+        trigger: {1: 5, 2: 4},
     },
 
 ];

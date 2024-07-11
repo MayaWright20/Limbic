@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
+import { useSelector } from "react-redux";
 
 import ScreenLinearBackground from '../../constants/ScreenLinearBackground';
 import Message from '../inputs/Message';
@@ -17,55 +18,28 @@ import { CHAT_BOT_DATA } from '../../data/ChatbotData';
 import { COLORS } from '../../constants/Colors';
 import { USER_INPUT } from '../../types/Types';
 import { SCREEN_WIDTH } from '../../constants/Dimensions';
-
-
+import { RootState } from '../../redux/store/store';
 
 export default function ChatScreen() {
 
-  // const sendData = async (message) => {
-  //   try {
-  //     const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ message }),
-  //     });
-  //     const data = await response.json();
-  //     console.log(data); // Handle success response
-  //   } catch (error) {
-  //     console.error('Error:', error); // Handle errors
-  //   }
-  // };
+  const currentID = useSelector((state: RootState) => state.chat.currentID);
 
-  let counter: number = 1;
-  let conversation = CHAT_BOT_DATA.slice(0, counter);
-  const [showTextInputLayout, setShowTextInputLayout] = useState<boolean>(false);
+  const [conversation, setConversation] = useState<any>([CHAT_BOT_DATA[currentID]]);
+  const [showTextInputLayout, setShowTextInputLayout] = useState<boolean>(CHAT_BOT_DATA[currentID].userInput === USER_INPUT.TEXT_INPUT);
   const [text, onChangeText] = useState<string>('');
 
   const onPressTextInput = () => {
     console.log('onPressTextInput');
-  };
-
-  useEffect(() => {
-    conversation.forEach((item) => {
-      if (item.userInput === USER_INPUT.TEXT_INPUT) {
-        setShowTextInputLayout(true);
-      } else {
-        setShowTextInputLayout(false);
-      }
-    });
-  }, [conversation]);
+  }
 
   const renderItem = ({ item }: any) => {
-
     return (
       <Message
         title={item.message}
         borderColor={item.user ? COLORS.HIGHTLIGHT_DARK_BLUE : COLORS.DARK_LIME}
         alignSelf={item.user ? 'flex-end' : 'flex-start'}
       />
-    )
+    );
   };
 
   return (
@@ -74,7 +48,7 @@ export default function ChatScreen() {
         <FlatList
           data={conversation}
           renderItem={renderItem}
-          keyExtractor={(item, index) => String(item.id)}
+          keyExtractor={(item, index) => String(index)}
           contentContainerStyle={styles.flatList}
         />
       </View>
@@ -100,7 +74,7 @@ export default function ChatScreen() {
       </KeyboardAvoidingView>
     </ScreenLinearBackground>
   );
-};
+}
 
 const styles = StyleSheet.create({
   flatListWrapper: {
@@ -121,13 +95,13 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: SCREEN_WIDTH / 1.05,
     alignSelf: 'center',
-    marginBottom: 15
+    marginBottom: 15,
   },
   textInputs: {
     backgroundColor: 'white',
     flex: 2,
     height: 50,
-    paddingHorizontal: 25
+    paddingHorizontal: 25,
   },
   touchableOpacity: {
     backgroundColor: COLORS.HIGHTLIGHT_DARK_BLUE,
@@ -135,6 +109,6 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     margin: 5,
     alignItems: 'center',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 });

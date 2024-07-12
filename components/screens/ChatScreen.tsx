@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import ScreenLinearBackground from '../../constants/ScreenLinearBackground';
 import Message from '../inputs/Message';
@@ -19,18 +19,30 @@ import { COLORS } from '../../constants/Colors';
 import { USER_INPUT } from '../../types/Types';
 import { SCREEN_WIDTH } from '../../constants/Dimensions';
 import { RootState } from '../../redux/store/store';
+import { setCurrentID } from '../../redux/slices/chatState';
 
 export default function ChatScreen() {
 
+  const dispatch = useDispatch()
   const currentID = useSelector((state: RootState) => state.chat.currentID);
+  const showUserTextInput = CHAT_BOT_DATA[currentID].userInput === USER_INPUT.TEXT_INPUT;
 
   const [conversation, setConversation] = useState<any>([CHAT_BOT_DATA[currentID]]);
-  const [showTextInputLayout, setShowTextInputLayout] = useState<boolean>(CHAT_BOT_DATA[currentID].userInput === USER_INPUT.TEXT_INPUT);
+  const [showTextInputLayout, setShowTextInputLayout] = useState<boolean>(showUserTextInput);
   const [text, onChangeText] = useState<string>('');
 
   const onPressTextInput = () => {
-    console.log('onPressTextInput');
-  }
+    const userResponse = { id: `user${currentID}`, message: text, user: true };
+    setConversation((prev) => [...prev, userResponse]);
+    const nextID = CHAT_BOT_DATA[currentID].trigger;
+    dispatch(setCurrentID(nextID));
+    setConversation((prev) => [...prev, CHAT_BOT_DATA[nextID]]);
+  };
+
+
+  useEffect(() => {
+    onChangeText('');
+  }, [conversation])
 
   const renderItem = ({ item }: any) => {
     return (

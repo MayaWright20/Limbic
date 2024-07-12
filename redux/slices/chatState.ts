@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface ChatState {
-    currentID: number;
+    currentID: number | 'END';
 };
 
 const initialState: ChatState = {
@@ -12,7 +12,7 @@ const chatSlice = createSlice({
     name: "chat",
     initialState,
     reducers: {
-        setCurrentID: (state, action: PayloadAction<number>) => {
+        setCurrentID: (state, action: PayloadAction<number | 'END'>) => {
             state.currentID = action.payload;
         },
     }

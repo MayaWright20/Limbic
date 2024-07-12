@@ -58,7 +58,7 @@ export const CHAT_BOT_DATA = [
             keyboardType : 'email-address'
         },
         metadata: {},
-        trigger: 1,
+        trigger: 'END',
     },
 
 ];

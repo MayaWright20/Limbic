@@ -32,13 +32,15 @@ export default function ChatScreen() {
   const [showTextInputLayout, setShowTextInputLayout] = useState<boolean>(showUserTextInput);
   const [text, onChangeText] = useState<string | undefined>(undefined);
 
+  const nextID = CHAT_BOT_DATA[currentID].trigger;
+  const userResponse = { id: `user${currentID}`, message: text, user: true };
+
   const onPressTextInput = () => {
     if (text === undefined) {
       return Alert.alert('Response is needed to proceed')
     }
-    const userResponse = { id: `user${currentID}`, message: text, user: true };
+
     setConversation((prev) => [...prev, userResponse]);
-    const nextID = CHAT_BOT_DATA[currentID].trigger;
     dispatch(setCurrentID(nextID));
     setConversation((prev) => [...prev, CHAT_BOT_DATA[nextID]]);
   };
@@ -46,7 +48,15 @@ export default function ChatScreen() {
 
   useEffect(() => {
     onChangeText(undefined);
-  }, [conversation])
+    if (CHAT_BOT_DATA[currentID].trigger === 'END') {
+      Alert.alert('END of convo');
+
+      setTimeout(() => {
+        dispatch(setCurrentID(0));
+        setConversation([CHAT_BOT_DATA[0]])
+      }, 5000)
+    }
+  }, [conversation, currentID])
 
   const renderItem = ({ item }: any) => {
     return (

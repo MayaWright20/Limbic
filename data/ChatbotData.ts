@@ -17,7 +17,7 @@ export const CHAT_BOT_DATA = [
     },
     {
         id: 1,
-        message: `Nice to meet you {first_name}!`,
+        message: `Nice to meet you!`,
         userInput: USER_INPUT.NO_INPUT,
         user: false,
         botDelay: 500,
@@ -221,7 +221,7 @@ export const CHAT_BOT_DATA = [
     },
     {
         id: 19,
-        message: `Thanks for answering these, {first_name}!`,
+        message: `Thanks for answering these,!`,
         userInput: USER_INPUT.NO_INPUT,
         user: false,
         trigger: 20
@@ -254,7 +254,7 @@ export const CHAT_BOT_DATA = [
     },
     {
         id: 23,
-        message: `Thanks {first_name}, that's all for now!`,
+        message: `Thanks, that's all for now!`,
         userInput: USER_INPUT.OPTIONS,
         user: false,
         options: [

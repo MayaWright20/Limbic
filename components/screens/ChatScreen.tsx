@@ -8,6 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Alert,
+  Text
 } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 
@@ -21,61 +22,83 @@ import { USER_INPUT } from '../../types/Types';
 import { SCREEN_WIDTH } from '../../constants/Dimensions';
 import { RootState } from '../../redux/store/store';
 import { setCurrentID } from '../../redux/slices/chatState';
+import Option from '../inputs/Option';
+
+
 
 export default function ChatScreen() {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const currentID = useSelector((state: RootState) => state.chat.currentID);
   const showUserTextInput = CHAT_BOT_DATA[currentID].userInput === USER_INPUT.TEXT_INPUT;
+  const showOptions = CHAT_BOT_DATA[currentID].userInput === USER_INPUT.OPTIONS;
 
   const [conversation, setConversation] = useState<any>([CHAT_BOT_DATA[currentID]]);
   const [showTextInputLayout, setShowTextInputLayout] = useState<boolean>(showUserTextInput);
   const [text, onChangeText] = useState<string | undefined>(undefined);
 
-  const nextID = CHAT_BOT_DATA[currentID].trigger;
-  const userResponse = { id: `user${currentID}`, message: text, user: true };
-
   const onPressTextInput = () => {
     if (text === undefined) {
-      return Alert.alert('Response is needed to proceed')
+      return Alert.alert('Response is needed to proceed');
     }
 
-    setConversation((prev) => [...prev, userResponse]);
+    const userResponse = { id: `user${currentID}`, message: text, user: true };
+    const nextID = CHAT_BOT_DATA[currentID].trigger;
+
+    setConversation((prev) => [...prev, userResponse, CHAT_BOT_DATA[nextID]]);
     dispatch(setCurrentID(nextID));
-    setConversation((prev) => [...prev, CHAT_BOT_DATA[nextID]]);
+    onChangeText(undefined);
   };
 
-
   useEffect(() => {
+    const nextID = CHAT_BOT_DATA[currentID].trigger;
 
     if (showUserTextInput) {
-      setShowTextInputLayout(true)
+      setShowTextInputLayout(true);
+    } else if (showOptions) {
+
+      // const options = { id: `options${currentID}`, message: '', user: false, userInput: USER_INPUT.OPTIONS };
+
+      const options = CHAT_BOT_DATA[currentID]
+      setConversation((prev) => [...prev, options, CHAT_BOT_DATA[nextID]]);
+      // dispatch(setCurrentID(nextID));
     } else {
       setShowTextInputLayout(false);
-      setConversation((prev) => [...prev]);
-      dispatch(setCurrentID(nextID));
       setConversation((prev) => [...prev, CHAT_BOT_DATA[nextID]]);
-    };
+      dispatch(setCurrentID(nextID));
+    }
 
-
-    onChangeText(undefined);
     if (CHAT_BOT_DATA[currentID].trigger === 'END') {
       Alert.alert('END of convo');
-
       setTimeout(() => {
         dispatch(setCurrentID(0));
-        setConversation([CHAT_BOT_DATA[0]])
-      }, 5000)
+        setConversation([CHAT_BOT_DATA[0]]);
+      }, 5000);
     }
-  }, [conversation, currentID])
+  }, [currentID]);
+
+
+  const onPressOption = (value) => {
+    console.log('option pressed', value)
+  }
+
+
 
   const renderItem = ({ item }: any) => {
     return (
-      <Message
-        title={item.message}
-        borderColor={item.user ? COLORS.HIGHTLIGHT_DARK_BLUE : COLORS.DARK_LIME}
-        alignSelf={item.user ? 'flex-end' : 'flex-start'}
-      />
+      <>
+        <Message
+          title={item.message}
+          borderColor={item.user ? COLORS.HIGHTLIGHT_DARK_BLUE : COLORS.DARK_LIME}
+          alignSelf={item.user ? 'flex-end' : 'flex-start'}
+        />
+        {
+          item.options && item.options.map((value, index) => {
+            return (
+              <Option key={index} id={index} onPress={() => onPressOption(value.value)} title={value.title} />
+            )
+          })
+        }
+      </>
     );
   };
 
@@ -89,23 +112,17 @@ export default function ChatScreen() {
           contentContainerStyle={styles.flatList}
         />
       </View>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-        <TouchableWithoutFeedback
-          onPress={Keyboard.dismiss}>
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View>
-            {
-              showTextInputLayout ?
-                <TextInputLayout
-                  title='Send'
-                  onPress={onPressTextInput}
-                  onChangeText={onChangeText}
-                  value={text}
-                />
-                :
-                null
-            }
+            {showTextInputLayout ? (
+              <TextInputLayout
+                title='Send'
+                onPress={onPressTextInput}
+                onChangeText={onChangeText}
+                value={text}
+              />
+            ) : null}
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>

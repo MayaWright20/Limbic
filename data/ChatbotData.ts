@@ -46,35 +46,49 @@ export const CHAT_BOT_DATA = [
     {
         id: 3,
         message: `Shall we start?`,
-        userInput: USER_INPUT.TEXT_INPUT,
+        userInput: USER_INPUT.OPTIONS,
         user: false,
         botDelay:500,
         optionsStyle: '',
         options: [
-            { value: 1, label: 'Yes', trigger: 5 },
-            { value: 2, label: 'No', trigger: 4 },
+            { value: 1, title: 'Yes', trigger: 5 },
+            { value: 2, title: 'No', trigger: 4 },
         ],
         inputAttributes: {
             keyboardType : 'email-address'
         },
-        metadata: {},
-        trigger: 4,
+        trigger: 6,
     },
     {
         id: 4,
-        message: `Shall we start?`,
+        message: `Yes. I want to start`,
         userInput: USER_INPUT.TEXT_INPUT,
         user: false,
-        botDelay:500,
         optionsStyle: '',
-        options: [
-            { value: 1, label: 'Yes', trigger: 5 },
-            { value: 2, label: 'No', trigger: 4 },
-        ],
-        inputAttributes: {
-            keyboardType : 'email-address'
-        },
-        metadata: {},
+        trigger: 6,
+    },
+    {
+        id: 5,
+        message: `No. I dont want to start`,
+        userInput: USER_INPUT.TEXT_INPUT,
+        user: false,
+        optionsStyle: '',
+        trigger: 'END',
+    },
+    {
+        id: 6,
+        message: `Yes - this is the start`,
+        userInput: USER_INPUT.TEXT_INPUT,
+        user: false,
+        optionsStyle: '',
+        trigger: 7,
+    },
+    {
+        id: 7,
+        message: `Woohooo`,
+        userInput: USER_INPUT.TEXT_INPUT,
+        user: false,
+        optionsStyle: '',
         trigger: 'END',
     },
 ];

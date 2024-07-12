@@ -11,5 +11,5 @@ export interface TextInputLayoutProps {
     onPress: () => void;
     title: string;
     onChangeText?: (text: string) => void;
-    value: string;
+    value: string | undefined;
 };

@@ -27,14 +27,18 @@ import Option from '../inputs/Option';
 
 
 export default function ChatScreen() {
+
   const dispatch = useDispatch();
   const currentID = useSelector((state: RootState) => state.chat.currentID);
   const showUserTextInput = CHAT_BOT_DATA[currentID].userInput === USER_INPUT.TEXT_INPUT;
   const showOptions = CHAT_BOT_DATA[currentID].userInput === USER_INPUT.OPTIONS;
+  const noInput = CHAT_BOT_DATA[currentID].userInput === USER_INPUT.NO_INPUT;
+
 
   const [conversation, setConversation] = useState<any>([CHAT_BOT_DATA[currentID]]);
   const [showTextInputLayout, setShowTextInputLayout] = useState<boolean>(showUserTextInput);
   const [text, onChangeText] = useState<string | undefined>(undefined);
+  const [optionsTrigger, setOptionsTrigger] = useState<number| undefined>(undefined)
 
   const onPressTextInput = () => {
     if (text === undefined) {
@@ -56,12 +60,7 @@ export default function ChatScreen() {
       setShowTextInputLayout(true);
     } else if (showOptions) {
 
-      // const options = { id: `options${currentID}`, message: '', user: false, userInput: USER_INPUT.OPTIONS };
-
-      const options = CHAT_BOT_DATA[currentID]
-      setConversation((prev) => [...prev, options, CHAT_BOT_DATA[nextID]]);
-      // dispatch(setCurrentID(nextID));
-    } else {
+    } else if(noInput){
       setShowTextInputLayout(false);
       setConversation((prev) => [...prev, CHAT_BOT_DATA[nextID]]);
       dispatch(setCurrentID(nextID));
@@ -77,9 +76,10 @@ export default function ChatScreen() {
   }, [currentID]);
 
 
-  const onPressOption = (value) => {
-    console.log('option pressed', value)
-  }
+  const onPressOption = (trigger) => {
+    setConversation((prev) => [...prev, CHAT_BOT_DATA[trigger]]);
+    dispatch(setCurrentID(trigger));
+  };
 
 
 
@@ -92,9 +92,9 @@ export default function ChatScreen() {
           alignSelf={item.user ? 'flex-end' : 'flex-start'}
         />
         {
-          item.options && item.options.map((value, index) => {
+          item.options && item.options.map(({title, trigger}, index) => {
             return (
-              <Option key={index} id={index} onPress={() => onPressOption(value.value)} title={value.title} />
+              <Option key={index} id={index} onPress={() => onPressOption(trigger)} title={title} />
             )
           })
         }

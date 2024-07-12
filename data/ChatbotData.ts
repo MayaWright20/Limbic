@@ -51,20 +51,15 @@ export const CHAT_BOT_DATA = [
         botDelay:500,
         optionsStyle: '',
         options: [
-            { value: 1, title: 'Yes', trigger: 5 },
-            { value: 2, title: 'No', trigger: 4 },
+            { title: 'Yes', trigger: 5 },
+            { title: 'No', trigger: 4 },
         ],
-        inputAttributes: {
-            keyboardType : 'email-address'
-        },
-        trigger: 6,
     },
     {
         id: 4,
         message: `Yes. I want to start`,
         userInput: USER_INPUT.TEXT_INPUT,
         user: false,
-        optionsStyle: '',
         trigger: 6,
     },
     {

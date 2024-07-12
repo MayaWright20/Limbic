@@ -191,9 +191,10 @@ export const CHAT_BOT_DATA = [
         userInput: USER_INPUT.OPTIONS,
         user: false,
         options: [
-            { title: 'Call 999', trigger: 17, value: 0, telephone: '+447506111484' },
+            { title: 'Call 999', trigger: 17, value: 0, telephone: '999' },
             { title: `Call Samaritans`, trigger: 17, value: 1, telephone: '116123' },
             { title: 'Continue', trigger: 18, value: 2 },
+            { title: 'End Conversation', trigger: 0, value: 3 },
         ],
     },
     {
@@ -221,55 +222,40 @@ export const CHAT_BOT_DATA = [
     {
         id: 19,
         message: `Thanks for answering these, {first_name}!`,
-        userInput: USER_INPUT.OPTIONS,
+        userInput: USER_INPUT.NO_INPUT,
         user: false,
         trigger: 20
     },
     {
         id: 20,
-        message: `Thanks for answering these, {first_name}!`,
+        message: `Now I will need to ask you for some personal information`,
         userInput: USER_INPUT.NO_INPUT,
         user: false,
         trigger: 21
     },
     {
         id: 21,
-        message: `Now I will need to ask you for some personal information`,
-        userInput: USER_INPUT.NO_INPUT,
-        user: false,
-        trigger: 22
-    },
-    {
-        id: 22,
         message: `What is your phone number?`,
         userInput: USER_INPUT.TEXT_INPUT,
         user: false,
-        keyboardType: 'number-pad',
-        trigger: 23,
+        keyboardType: 'phone-pad',
+        trigger: 22,
     },
     {
-        id: 23,
-        message: `And your birthday?`,
-        userInput: USER_INPUT.TEXT_INPUT,
-        user: false,
-        keyboardType: 'number-pad',
-        trigger: 24,
-    },
-    {
-        id: 25,
+        id: 22,
         message: `How can we contact you?`,
-        userInput: USER_INPUT.TEXT_INPUT,
+        userInput: USER_INPUT.OPTIONS,
         user: false,
         options: [
-            { title: 'Phone', trigger: 26 },
-            { title: `Email`, trigger: 26 },
-            { title: 'Push', trigger: 26 },
+            { title: 'Phone', trigger: 23 },
+            { title: `Email`, trigger: 23 },
+            { title: 'Push', trigger: 23 },
         ],
     },
     {
-        id: 26,
+        id: 23,
         message: `Thanks {first_name}, that's all for now!`,
-        userInput: USER_INPUT.TEXT_INPUT,
+        userInput: USER_INPUT.OPTIONS,
         user: false,
         options: [
             { title: 'End conversation', trigger: 0 },

@@ -16,7 +16,8 @@ export default function TextInputLayout({
     onPress,
     title,
     onChangeText,
-    value
+    value,
+    keyboardType
 }: TextInputLayoutProps) {
 
     return (
@@ -26,6 +27,7 @@ export default function TextInputLayout({
                 placeholder="Type here..."
                 onChangeText={onChangeText}
                 value={value}
+                keyboardType={keyboardType}
             />
             <TouchableOpacity
                 onPress={onPress}

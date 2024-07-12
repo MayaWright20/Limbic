@@ -30,7 +30,6 @@ export default function ChatScreen() {
   const dispatch = useDispatch();
   const currentID = useSelector((state: RootState) => state.chat.currentID);
   const showUserTextInput = CHAT_BOT_DATA[currentID].userInput === USER_INPUT.TEXT_INPUT;
-  const showOptions = CHAT_BOT_DATA[currentID].userInput === USER_INPUT.OPTIONS;
   const noInput = CHAT_BOT_DATA[currentID].userInput === USER_INPUT.NO_INPUT;
 
 
@@ -61,12 +60,12 @@ export default function ChatScreen() {
 
     if (showUserTextInput) {
       setShowTextInputLayout(true);
-    } else if (showOptions) {
-
     } else if (noInput) {
       setShowTextInputLayout(false);
       setConversation((prev) => [...prev, CHAT_BOT_DATA[nextID]]);
       dispatch(setCurrentID(nextID));
+    } else{
+      setShowTextInputLayout(false);
     }
 
     if (CHAT_BOT_DATA[currentID].trigger === 'END') {
@@ -106,7 +105,11 @@ export default function ChatScreen() {
         {
           item.options && item.options.map(({ title, trigger, telephone }, index) => {
             return (
-              <Option key={index} id={index} onPress={() => onPressOption(trigger, title, telephone)} title={title} />
+              <Option 
+              key={index} 
+              id={index} 
+              onPress={() => onPressOption(trigger, title, telephone)} 
+              title={title} />
             )
           })
         }
@@ -133,6 +136,7 @@ export default function ChatScreen() {
                 onPress={onPressTextInput}
                 onChangeText={onChangeText}
                 value={text}
+                keyboardType={CHAT_BOT_DATA[currentID].keyboardType}
               />
             ) : null}
           </View>

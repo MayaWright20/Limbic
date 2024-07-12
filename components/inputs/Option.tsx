@@ -2,7 +2,15 @@ import React from "react";
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { COLORS } from "../../constants/Colors";
 
-export default function({onPress, title, id}: {onPress: ()=> any; title: string; id: number}){
+export default function({
+    onPress, 
+    title, 
+    id
+}: {
+    onPress: ()=> any; 
+    title: string; 
+    id: number
+}){
     return(
         <TouchableOpacity 
         key={id}

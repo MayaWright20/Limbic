@@ -7,6 +7,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
+  Alert,
 } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 
@@ -29,9 +30,12 @@ export default function ChatScreen() {
 
   const [conversation, setConversation] = useState<any>([CHAT_BOT_DATA[currentID]]);
   const [showTextInputLayout, setShowTextInputLayout] = useState<boolean>(showUserTextInput);
-  const [text, onChangeText] = useState<string>('');
+  const [text, onChangeText] = useState<string | undefined>(undefined);
 
   const onPressTextInput = () => {
+    if (text === undefined) {
+      return Alert.alert('Response is needed to proceed')
+    }
     const userResponse = { id: `user${currentID}`, message: text, user: true };
     setConversation((prev) => [...prev, userResponse]);
     const nextID = CHAT_BOT_DATA[currentID].trigger;
@@ -41,7 +45,7 @@ export default function ChatScreen() {
 
 
   useEffect(() => {
-    onChangeText('');
+    onChangeText(undefined);
   }, [conversation])
 
   const renderItem = ({ item }: any) => {

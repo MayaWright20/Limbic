@@ -7,8 +7,7 @@ import {
   Platform,
   TouchableWithoutFeedback,
   Keyboard,
-  Alert,
-  Text
+  Alert
 } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 
@@ -24,8 +23,6 @@ import { RootState } from '../../redux/store/store';
 import { setCurrentID } from '../../redux/slices/chatState';
 import Option from '../inputs/Option';
 
-
-
 export default function ChatScreen() {
 
   const dispatch = useDispatch();
@@ -38,7 +35,7 @@ export default function ChatScreen() {
   const [conversation, setConversation] = useState<any>([CHAT_BOT_DATA[currentID]]);
   const [showTextInputLayout, setShowTextInputLayout] = useState<boolean>(showUserTextInput);
   const [text, onChangeText] = useState<string | undefined>(undefined);
-  const [optionsTrigger, setOptionsTrigger] = useState<number| undefined>(undefined)
+
 
   const onPressTextInput = () => {
     if (text === undefined) {
@@ -55,6 +52,10 @@ export default function ChatScreen() {
 
   useEffect(() => {
     const nextID = CHAT_BOT_DATA[currentID].trigger;
+
+    if(currentID === 0){
+      setConversation([CHAT_BOT_DATA[currentID]])
+    }
 
     if (showUserTextInput) {
       setShowTextInputLayout(true);
@@ -76,12 +77,11 @@ export default function ChatScreen() {
   }, [currentID]);
 
 
-  const onPressOption = (trigger) => {
-    setConversation((prev) => [...prev, CHAT_BOT_DATA[trigger]]);
+  const onPressOption = (trigger, title) => {
+    const userResponse = { id: `user${currentID}`, message: title, user: true };
+    setConversation((prev) => [...prev, userResponse,CHAT_BOT_DATA[trigger]]);
     dispatch(setCurrentID(trigger));
   };
-
-
 
   const renderItem = ({ item }: any) => {
     return (
@@ -94,7 +94,7 @@ export default function ChatScreen() {
         {
           item.options && item.options.map(({title, trigger}, index) => {
             return (
-              <Option key={index} id={index} onPress={() => onPressOption(trigger)} title={title} />
+              <Option key={index} id={index} onPress={() => onPressOption(trigger, title)} title={title} />
             )
           })
         }

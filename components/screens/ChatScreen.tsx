@@ -47,6 +47,17 @@ export default function ChatScreen() {
 
 
   useEffect(() => {
+
+    if (showUserTextInput) {
+      setShowTextInputLayout(true)
+    } else {
+      setShowTextInputLayout(false);
+      setConversation((prev) => [...prev]);
+      dispatch(setCurrentID(nextID));
+      setConversation((prev) => [...prev, CHAT_BOT_DATA[nextID]]);
+    };
+
+
     onChangeText(undefined);
     if (CHAT_BOT_DATA[currentID].trigger === 'END') {
       Alert.alert('END of convo');

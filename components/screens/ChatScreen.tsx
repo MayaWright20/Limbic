@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { useSelector, useDispatch } from "react-redux";
 
+import call from 'react-native-phone-call'
+
 import ScreenLinearBackground from '../../constants/ScreenLinearBackground';
 import Message from '../inputs/Message';
 import TextInputLayout from '../inputs/TextInputLayout';
@@ -39,7 +41,7 @@ export default function ChatScreen() {
 
   const onPressTextInput = () => {
     if (text === undefined) {
-      return Alert.alert('Response is needed to proceed');
+      return Alert.alert('Please add a response to continue');
     }
 
     const userResponse = { id: `user${currentID}`, message: text, user: true };
@@ -53,7 +55,7 @@ export default function ChatScreen() {
   useEffect(() => {
     const nextID = CHAT_BOT_DATA[currentID].trigger;
 
-    if(currentID === 0){
+    if (currentID === 0) {
       setConversation([CHAT_BOT_DATA[currentID]])
     }
 
@@ -61,7 +63,7 @@ export default function ChatScreen() {
       setShowTextInputLayout(true);
     } else if (showOptions) {
 
-    } else if(noInput){
+    } else if (noInput) {
       setShowTextInputLayout(false);
       setConversation((prev) => [...prev, CHAT_BOT_DATA[nextID]]);
       dispatch(setCurrentID(nextID));
@@ -77,10 +79,20 @@ export default function ChatScreen() {
   }, [currentID]);
 
 
-  const onPressOption = (trigger, title) => {
-    const userResponse = { id: `user${currentID}`, message: title, user: true };
-    setConversation((prev) => [...prev, userResponse,CHAT_BOT_DATA[trigger]]);
-    dispatch(setCurrentID(trigger));
+  const onPressOption = (trigger, title, telephone) => {
+    if (telephone) {
+      const args = {
+        number: telephone,
+        prompt: true, 
+        skipCanOpen: true
+      }
+
+      call(args).catch(console.error)
+    } else {
+      const userResponse = { id: `user${currentID}`, message: title, user: true };
+      setConversation((prev) => [...prev, userResponse, CHAT_BOT_DATA[trigger]]);
+      dispatch(setCurrentID(trigger));
+    }
   };
 
   const renderItem = ({ item }: any) => {
@@ -92,9 +104,9 @@ export default function ChatScreen() {
           alignSelf={item.user ? 'flex-end' : 'flex-start'}
         />
         {
-          item.options && item.options.map(({title, trigger}, index) => {
+          item.options && item.options.map(({ title, trigger, telephone }, index) => {
             return (
-              <Option key={index} id={index} onPress={() => onPressOption(trigger, title)} title={title} />
+              <Option key={index} id={index} onPress={() => onPressOption(trigger, title, telephone)} title={title} />
             )
           })
         }

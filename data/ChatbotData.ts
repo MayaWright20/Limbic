@@ -10,7 +10,7 @@ export const CHAT_BOT_DATA = [
         optionsStyle: '',
         options: [],
         inputAttributes: {
-            keyboardType : 'text'
+            keyboardType: 'text'
         },
         metadata: {},
         trigger: 1,
@@ -24,7 +24,7 @@ export const CHAT_BOT_DATA = [
         optionsStyle: '',
         options: [],
         inputAttributes: {
-            keyboardType : 'email-address'
+            keyboardType: 'email-address'
         },
         metadata: {},
         trigger: 2,
@@ -38,7 +38,7 @@ export const CHAT_BOT_DATA = [
         optionsStyle: '',
         options: [],
         inputAttributes: {
-            keyboardType : 'email-address'
+            keyboardType: 'email-address'
         },
         metadata: {},
         trigger: 3,
@@ -73,19 +73,206 @@ export const CHAT_BOT_DATA = [
     {
         id: 6,
         message: `Answer how often this happened in the last two weeks`,
-        userInput: USER_INPUT.OPTIONS,
+        userInput: USER_INPUT.NO_INPUT,
         user: false,
-        options: [
-            { title: 'Not at all', trigger: 7 },
-            { title: `Several days`, trigger: 7 },
-        ],
+        trigger: 7
     },
     {
         id: 7,
-        message: `end`,
+        message: `Little interest or pleasure in doing things`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        options: [
+            { title: 'Not at all', trigger: 8, value: 0 },
+            { title: `Several days`, trigger: 8, value: 1 },
+            { title: 'More than half the days', trigger: 8, value: 2 },
+            { title: `Nearly every day`, trigger: 8, value: 3 },
+        ],
+    },
+    {
+        id: 8,
+        message: `Feeling down, depressed, or hopeless`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        options: [
+            { title: 'Not at all', trigger: 9, value: 0 },
+            { title: `Several days`, trigger: 9, value: 1 },
+            { title: 'More than half the days', trigger: 9, value: 2 },
+            { title: `Nearly every day`, trigger: 9, value: 3 },
+        ],
+    },
+    {
+        id: 9,
+        message: `Trouble falling or staying asleep, or sleeping too much`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        options: [
+            { title: 'Not at all', trigger: 10, value: 0 },
+            { title: `Several days`, trigger: 10, value: 1 },
+            { title: 'More than half the days', trigger: 10, value: 2 },
+            { title: `Nearly every day`, trigger: 10, value: 3 },
+        ],
+    },
+    {
+        id: 10,
+        message: `Feeling tired or having little energy`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        options: [
+            { title: 'Not at all', trigger: 11, value: 0 },
+            { title: `Several days`, trigger: 11, value: 1 },
+            { title: 'More than half the days', trigger: 11, value: 2 },
+            { title: `Nearly every day`, trigger: 11, value: 3 },
+        ],
+    },
+    {
+        id: 11,
+        message: `Poor appetite or overeating`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        options: [
+            { title: 'Not at all', trigger: 12, value: 0 },
+            { title: `Several days`, trigger: 12, value: 1 },
+            { title: 'More than half the days', trigger: 12, value: 2 },
+            { title: `Nearly every day`, trigger: 12, value: 3 },
+        ],
+    },
+    {
+        id: 12,
+        message: `Feeling bad about yourself or that you are a failure or have let yourself or your family down`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        options: [
+            { title: 'Not at all', trigger: 13, value: 0 },
+            { title: `Several days`, trigger: 13, value: 1 },
+            { title: 'More than half the days', trigger: 13, value: 2 },
+            { title: `Nearly every day`, trigger: 13, value: 3 },
+        ],
+    },
+    {
+        id: 13,
+        message: `Trouble concentrating on things, such as reading the newspaper or watching television`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        options: [
+            { title: 'Not at all', trigger: 14, value: 0 },
+            { title: `Several days`, trigger: 14, value: 1 },
+            { title: 'More than half the days', trigger: 14, value: 2 },
+            { title: `Nearly every day`, trigger: 14, value: 3 },
+        ],
+    },
+    {
+        id: 14,
+        message: `Moving or speaking so slowly that other people could have noticed. Or the opposite being so figety or restless that you have been moving around a lot more than usual`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        options: [
+            { title: 'Not at all', trigger: 15, value: 0 },
+            { title: `Several days`, trigger: 15, value: 1 },
+            { title: 'More than half the days', trigger: 15, value: 2 },
+            { title: `Nearly every day`, trigger: 15, value: 3 },
+        ],
+    },
+    {
+        id: 15,
+        message: `Thoughts that you would be better off dead, or of hurting yourself`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        options: [
+            { title: 'Not at all', trigger: 16, value: 0 },
+            { title: `Several days`, trigger: 16, value: 1 },
+            { title: 'More than half the days', trigger: 16, value: 2 },
+            { title: `Nearly every day`, trigger: 16, value: 3 },
+        ],
+    },
+    {
+        id: 16,
+        message: `If you feel like you can't keep yourself or others safe right now, call the Samaritans to reach someone to support you or 999 in case of emergency.`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        options: [
+            { title: 'Call 999', trigger: 17, value: 0, telephone: '+447506111484' },
+            { title: `Call Samaritans`, trigger: 17, value: 1, telephone: '116123' },
+            { title: 'Continue', trigger: 18, value: 2 },
+        ],
+    },
+    {
+        id: 17,
+        message: `Do you want to continue?`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        options: [
+            { title: 'Yes', trigger: 0, value: 0, telephone: '+447506111484' },
+            { title: `No`, trigger: 18, value: 1, telephone: '116123' },
+        ],
+    },
+    {
+        id: 18,
+        message: `How difficult have these problems made it for you to do your work, take care of things at home, or get along with other people?`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        options: [
+            { title: 'Not at all', trigger: 19, value: 0 },
+            { title: `Several days`, trigger: 19, value: 1 },
+            { title: 'More than half the days', trigger: 19, value: 2 },
+            { title: `Nearly every day`, trigger: 19, value: 3 },
+        ],
+    },
+    {
+        id: 19,
+        message: `Thanks for answering these, {first_name}!`,
+        userInput: USER_INPUT.OPTIONS,
+        user: false,
+        trigger: 20
+    },
+    {
+        id: 20,
+        message: `Thanks for answering these, {first_name}!`,
         userInput: USER_INPUT.NO_INPUT,
         user: false,
-        optionsStyle: '',
-        trigger: 'END',
+        trigger: 21
+    },
+    {
+        id: 21,
+        message: `Now I will need to ask you for some personal information`,
+        userInput: USER_INPUT.NO_INPUT,
+        user: false,
+        trigger: 22
+    },
+    {
+        id: 22,
+        message: `What is your phone number?`,
+        userInput: USER_INPUT.TEXT_INPUT,
+        user: false,
+        keyboardType: 'number-pad',
+        trigger: 23,
+    },
+    {
+        id: 23,
+        message: `And your birthday?`,
+        userInput: USER_INPUT.TEXT_INPUT,
+        user: false,
+        keyboardType: 'number-pad',
+        trigger: 24,
+    },
+    {
+        id: 25,
+        message: `How can we contact you?`,
+        userInput: USER_INPUT.TEXT_INPUT,
+        user: false,
+        options: [
+            { title: 'Phone', trigger: 26 },
+            { title: `Email`, trigger: 26 },
+            { title: 'Push', trigger: 26 },
+        ],
+    },
+    {
+        id: 26,
+        message: `Thanks {first_name}, that's all for now!`,
+        userInput: USER_INPUT.TEXT_INPUT,
+        user: false,
+        options: [
+            { title: 'End conversation', trigger: 0 },
+        ],
     },
 ];
